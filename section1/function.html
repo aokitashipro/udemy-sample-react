@@ -15,7 +15,16 @@
   <script type="text/babel">
     const container = document.getElementById('app')
     const root = ReactDOM.createRoot(container)
-    const element = <p>hello react!!</p>
+
+    function testFunc(num1, num2){
+      return num1 + num2
+    }
+
+    const testArrowFunc = (num1, num2) => {
+      return num1 * num2
+    } 
+
+    const element = <p>{testFunc(2, 3)}と{testArrowFunc(2, 3)}</p>
     root.render(element)
   </script>
 

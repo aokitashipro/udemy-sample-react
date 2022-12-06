@@ -15,7 +15,14 @@
   <script type="text/babel">
     const container = document.getElementById('app')
     const root = ReactDOM.createRoot(container)
-    const element = <p>hello react!!</p>
+
+    const handleClick = () => console.log('クリック')
+    const handleClick2 = e => console.log(e.target.textContent)
+    
+    const element = <>
+      <button onClick={handleClick}>クリック</button>
+      <button onClick={handleClick2}>クリック2</button>
+    </>
     root.render(element)
   </script>
 

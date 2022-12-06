@@ -15,7 +15,22 @@
   <script type="text/babel">
     const container = document.getElementById('app')
     const root = ReactDOM.createRoot(container)
-    const element = <p>hello react!!</p>
+
+    const items = [
+      {
+        id: 1,
+        name: 'メロンパン'
+      }, {
+        id: 2,
+        name: 'コッペパン'
+      }
+    ]
+
+    const element = <ul>
+      { items.map( item => (
+        <li key={ item.id }>{ item.name }</li>
+      ) ) }
+      </ul>
     root.render(element)
   </script>
 
