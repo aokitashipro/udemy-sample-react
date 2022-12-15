@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+  
+  <script type="text/babel">
+    const container = document.getElementById('app')
+    const root = ReactDOM.createRoot(container)
+    
+    const ParentComponent = () => {
+      const members = [
+        {
+          id: 1,
+          name: '三苫'
+        }, 
+        {
+          id: 2,
+          name: '伊藤'
+        }, 
+        {
+          id: 3,
+          name: '堂安'
+        }
+      ]
+
+      return (<>
+      親です。
+      <ChildComponent members={members} />
+      コンポーネントを複数表示 <br />
+      { members.map( member => (
+        <MemberList name={member.name} />
+      ))}
+      
+      </>)
+    }
+
+    const MemberList = (props) => {
+      return (<>
+        <div>{ props.name }</div>
+      </>)
+    }
+
+    const ChildComponent = props => {
+      console.log(props)
+      return (<>
+      こどもです。 { props.members[0].name} <br />
+      <ul>
+        { props.members.map( member => (
+          <li key={member.id}>{member.name}</li>
+        ))}
+      </ul>
+      </>)
+    }
+    
+    root.render(<>
+    <ParentComponent />
+    </>)
+  </script>
+
+</body>
+</html>
