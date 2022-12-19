@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+  
+  <script type="text/babel">
+    const container = document.getElementById('app')
+    const root = ReactDOM.createRoot(container)
+    
+    const ControlledForm = () => {
+      const useState = React.useState
+      const [ form, setForm ] = useState({
+        name: '',
+        email: '',
+        gender: '',
+        contact: ''
+      })
+
+      const handleChange = e => {
+        const {name, value } = e.target
+        setForm({
+          ...form,
+          [name]: value
+        })
+      }
+      
+      const handleSubmit = e => {
+        e.preventDefault()
+        console.log(e)
+      }
+
+      return (<>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="name">名前</label>
+          <input id="name" type="text" name="name" value={form.name} onChange={handleChange} /><br />
+          <label htmlFor="email">メールアドレス</label>
+          <input id="email" type="email" name="email" value={form.email} onChange={handleChange} /><br />
+
+          <legend>性別</legend><br />
+          <label htmlFor="gender_male">男性</label>
+          <input id="gender_male" type="radio" name="gender" value="male" onChange={handleChange} /><br />
+          <label htmlFor="gender_female">女性</label>
+          <input id="gender_female" type="radio" name="gender" value="female" onChange={handleChange} /><br />
+          <label htmlFor="gender_other">その他</label>
+          <input id="gender_other" type="radio" name="gender" value="other" onChange={handleChange} /><br />
+
+
+          
+
+
+          
+          <label htmlFor="contact">お問合せ内容</label><br />
+          <textarea id="contact" name="contact" value={form.contact} onChange={handleChange}></textarea>
+
+          <button>送信</button>
+        </form>
+      </>)
+    }
+
+
+    root.render(<>
+    <ControlledForm />
+    </>)
+  </script>
+
+</body>
+</html>
