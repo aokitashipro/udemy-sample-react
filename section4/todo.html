@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    ul { list-style: none; }
+    .done { text-decoration: line-through; }
+   </style>
+</head>
+<body>
+  <div id="app"></div>
+  
+  <script type="text/babel">
+    const container = document.getElementById('app')
+    const root = ReactDOM.createRoot(container)
+    
+    const TodoList = () => {
+      const useState = React.useState
+      const [ item, setItem ] = useState('')
+      const [ todos, setTodo ] = useState([
+        { item: 'あああ', isDone: false }
+      ])
+
+      const addItem = () => {
+        if(!item) return
+        const newTodo = {
+          item,
+          isDone: false
+        }
+        setTodo([
+          ...todos,
+          newTodo
+        ])
+        setItem('')
+      }
+
+      const deleteItem = id => {
+        const newList = todos.filter((todo, index) => id !== index ? todo : null )
+        setTodo(newList)
+      }
+
+      const handleChange = (id, e) => {
+        const newList = todos.filter((todo, index) => {
+          if(id === index){
+            todo.isDone = e.target.checked
+            return todo
+          } else {
+            return todo
+          }
+        })
+
+        setTodo(newList)
+
+      }
+
+      return (<>
+      <input type="text" value={item} onChange={e => setItem( item => item = e.target.value )} />
+      <button onClick={addItem}>追加</button>
+
+      <ul>
+        { todos.map(( todo, index) => (
+          <li>
+            <input type="checkbox" checked={ todo.isDone} onChange={ e => handleChange(index, e)} />
+            <span className={ todo.isDone && 'done'}>{ todo.item }</span>
+            <button onClick={()=> deleteItem(index)}>削除</button>
+            </li>
+        ))}
+      </ul>
+
+      </>)
+    }
+
+    root.render(<>
+    <TodoList />
+    </>)
+  </script>
+
+</body>
+</html>

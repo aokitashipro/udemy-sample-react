@@ -19,14 +19,14 @@
     const ControlledForm = () => {
       const useState = React.useState
       const [ form, setForm ] = useState({
-        name: '',
-        email: '',
-        gender: '',
-        contact: ''
+        caution: false
       })
 
       const handleChange = e => {
-        const {name, value } = e.target
+        console.log(e)
+        // const {name, value } = e.target
+        const name = e.target.name
+        const value = name === 'caution' ? e.target.checked : e.target.value 
         setForm({
           ...form,
           [name]: value
@@ -35,27 +35,12 @@
       
       const handleSubmit = e => {
         e.preventDefault()
-        console.log(e)
+        console.log(form)
       }
 
       return (<>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="name">名前</label>
-          <input id="name" type="text" name="name" value={form.name} onChange={handleChange} /><br />
-          <label htmlFor="email">メールアドレス</label>
-          <input id="email" type="email" name="email" value={form.email} onChange={handleChange} /><br />
-
-          <legend>性別</legend><br />
-          <label htmlFor="gender_male">男性</label>
-          <input id="gender_male" type="radio" name="gender" value="male" onChange={handleChange} /><br />
-          <label htmlFor="gender_female">女性</label>
-          <input id="gender_female" type="radio" name="gender" value="female" onChange={handleChange} /><br />
-          <label htmlFor="gender_other">その他</label>
-          <input id="gender_other" type="radio" name="gender" value="other" onChange={handleChange} /><br />
-          
-          <label htmlFor="contact">お問合せ内容</label><br />
-          <textarea id="contact" name="contact" value={form.contact} onChange={handleChange}></textarea>
-
+          <input type="checkbox" name="caution" onChange={handleChange} />注意事項に同意する
           <button>送信</button>
         </form>
       </>)

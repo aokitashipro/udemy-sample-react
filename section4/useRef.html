@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+  
+  <script type="text/babel">
+    const container = document.getElementById('app')
+    const root = ReactDOM.createRoot(container)
+    
+    const UncontrolledForm = () => {
+      const useRef = React.useRef
+      const nameRef = useRef('')
+
+      console.log('レンダリング')
+
+      const handleSubmit = e => {
+        e.preventDefault()
+        console.log(nameRef.current.value)
+      }
+
+      return (<>
+        <form onSubmit={handleSubmit}>
+          <input name="name" type="text" ref={nameRef} />名前
+          <button>送信</button>
+          </form>
+      </>)
+    }
+
+    root.render(<>
+    <UncontrolledForm />
+    </>)
+  </script>
+
+</body>
+</html>

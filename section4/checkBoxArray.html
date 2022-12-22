@@ -19,43 +19,44 @@
     const ControlledForm = () => {
       const useState = React.useState
       const [ form, setForm ] = useState({
-        name: '',
-        email: '',
-        gender: '',
-        contact: ''
+        qurious: []
       })
 
       const handleChange = e => {
         const {name, value } = e.target
-        setForm({
+
+        if(form.qurious.includes(value)){
+          const list = form.qurious.filter( q => q !== value )
+          setForm({
           ...form,
-          [name]: value
+          [name]: list
         })
+        } else {
+          const list = [
+            ...form.qurious,
+            value
+          ]
+
+          setForm({
+          ...form,
+          [name]: list
+        })
+        }
+
+        
       }
       
       const handleSubmit = e => {
         e.preventDefault()
-        console.log(e)
+        console.log(form)
       }
 
       return (<>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="name">名前</label>
-          <input id="name" type="text" name="name" value={form.name} onChange={handleChange} /><br />
-          <label htmlFor="email">メールアドレス</label>
-          <input id="email" type="email" name="email" value={form.email} onChange={handleChange} /><br />
-
-          <legend>性別</legend><br />
-          <label htmlFor="gender_male">男性</label>
-          <input id="gender_male" type="radio" name="gender" value="male" onChange={handleChange} /><br />
-          <label htmlFor="gender_female">女性</label>
-          <input id="gender_female" type="radio" name="gender" value="female" onChange={handleChange} /><br />
-          <label htmlFor="gender_other">その他</label>
-          <input id="gender_other" type="radio" name="gender" value="other" onChange={handleChange} /><br />
-          
-          <label htmlFor="contact">お問合せ内容</label><br />
-          <textarea id="contact" name="contact" value={form.contact} onChange={handleChange}></textarea>
-
+          興味があるもの(複数回答可)<br />
+          <input type="checkbox" name="qurious" value="sports" onChange={handleChange} />スポーツ
+          <input type="checkbox" name="qurious" value="news" onChange={handleChange} />ニュース
+          <input type="checkbox" name="qurious" value="it" onChange={handleChange} />IT系   
           <button>送信</button>
         </form>
       </>)
